@@ -1,14 +1,20 @@
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import { GiRose } from "react-icons/gi";
+import FloatingParticles from "./FloatingParticles";
 
 const Hero = () => {
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 600], [0,120]);
+  const contentY = useTransform(scrollY, [0, 600], [0, -40]);
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-32">
       
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center scale-105"
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center scale-110"
         style={{
+          y: backgroundY,
           backgroundImage:
             "url('https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?q=80&w=1974&auto=format&fit=crop')",
         }}
@@ -20,12 +26,44 @@ const Hero = () => {
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-[#fff7f1]/20 to-[#fff8f3]" />
 
+      {/* Floating Particles */}
+        <FloatingParticles />
+        
       {/* Ambient Glow */}
-      <div className="absolute left-20 top-32 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-      <div className="absolute bottom-20 right-20 h-72 w-72 rounded-full bg-rose-300/30 blur-3xl" />
+      <motion.div
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 10, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute left-20 top-32 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl"
+      />
+
+      <motion.div
+        animate={{
+          y: [0, 20, 0],
+          x: [0, -10, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-20 right-20 h-72 w-72 rounded-full bg-rose-300/30 blur-3xl"
+      />
 
       {/* Content */}
-        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+        <motion.div
+          style={{ y: contentY }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="relative z-10 mx-auto max-w-5xl px-6 text-center"
+        >
           
           <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[#efd8d2] bg-white/70 px-6 py-3 backdrop-blur-md">
             <GiRose className="text-[#b85f68]" />
@@ -89,7 +127,7 @@ const Hero = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
     </section>
   );
 };

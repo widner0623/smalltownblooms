@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaArrowRight, FaHeart, FaMapMarkerAlt } from "react-icons/fa";
 import { GiRose, GiFlowerPot, GiBigDiamondRing } from "react-icons/gi";
 
@@ -8,7 +9,12 @@ const WeddingSection = () => {
       <div className="absolute -right-20 bottom-20 h-72 w-72 rounded-full bg-[#dce9cf]/50 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.8 }}
+        >
           <span className="inline-flex items-center gap-2 rounded-full border border-[#efd4cf] bg-[#fff1ed] px-5 py-2 text-sm font-semibold text-[#9b5f5f]">
             <GiBigDiamondRing />
             Wedding Specialists
@@ -64,9 +70,15 @@ const WeddingSection = () => {
             Book Consultation
             <FaArrowRight className="transition group-hover:translate-x-1" />
           </button>
-        </div>
+        </motion.div>
 
-        <div className="relative">
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.8 }}
+          className="relative"
+        >
           <div className="relative h-[520px] md:h-[620px] overflow-hidden rounded-[2.5rem] shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?q=80&w=1974&auto=format&fit=crop"
@@ -87,7 +99,7 @@ const WeddingSection = () => {
               Beaver Dam, Kentucky Wedding
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

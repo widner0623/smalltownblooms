@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   FaHeart,
   FaSun,
@@ -93,11 +94,13 @@ const FeaturedArrangements = () => {
 
         {/* Cards */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {arrangements.map((item) => (
-            <article
-              key={item.title}
-              className="group overflow-hidden rounded-[2.5rem] border border-[#f0ded8] bg-white shadow-sm transition duration-500 hover:-translate-y-3 hover:shadow-2xl"
-            >
+         {arrangements.map((item, index) => (
+          <motion.article
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: index * 0.08 }}
+          >
               
              {/* Image */}
               <div className="relative h-80 overflow-hidden">
@@ -143,7 +146,7 @@ const FeaturedArrangements = () => {
                   </button>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 

@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaInstagram,
   FaFacebookF,
@@ -9,7 +11,13 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#2d201c] px-6 py-20 text-white">
+   <motion.footer
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8 }}
+      className="bg-[#2d201c] px-6 py-20 text-white"
+    >
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-4">
         
         {/* Brand */}
@@ -24,9 +32,21 @@ const Footer = () => {
         <div>
           <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
           <ul className="space-y-2 text-sm text-[#d8b7b0]">
-            {["Home", "Shop", "Weddings", "Events", "About", "Contact"].map((item) => (
-              <li key={item} className="transition hover:text-[#b85f68] cursor-pointer">
-                {item}
+            {[
+              { name: "Home", path: "/" },
+              { name: "Shop", path: "/shop" },
+              { name: "Weddings", path: "/weddings" },
+              { name: "Events", path: "/events" },
+              { name: "About", path: "/about" },
+              { name: "Contact", path: "/contact" },
+            ].map((item) => (
+              <li key={item.name}>
+                <Link
+                  to={item.path}
+                  className="transition hover:text-[#b85f68]"
+                >
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -61,7 +81,7 @@ const Footer = () => {
       <div className="mt-16 text-center text-sm text-[#bba69e]">
         &copy; {new Date().getFullYear()} Small Town Blooms. All rights reserved.
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

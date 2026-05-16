@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FaHeart, FaStar } from "react-icons/fa";
 
 const testimonials = [
@@ -40,10 +41,12 @@ const Testimonials = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {testimonials.map((item) => (
-            <article
-              key={item.quote}
-              className="group rounded-[2.5rem] border border-[#f0ded8] bg-white/80 p-8 shadow-sm backdrop-blur-md transition duration-500 hover:-translate-y-2 hover:shadow-2xl"
+         {testimonials.map((item, index) => (
+            <motion.article
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className="flex gap-1 text-[#b85f68]">
                 {[...Array(5)].map((_, index) => (
@@ -65,7 +68,7 @@ const Testimonials = () => {
                   <p className="text-sm text-[#8a6a5f]">Verified Review</p>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>
